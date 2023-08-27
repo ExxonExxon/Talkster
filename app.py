@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, jsonify   
+from flask import Flask, render_template, request, redirect, session, jsonify, url_for
 import bcrypt
 import sqlite3
 import threading
@@ -43,8 +43,21 @@ def init_db():
     connection.commit()
 
 
+def get_profile_pic(username):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute('SELECT profile_pic FROM users WHERE username = ?', (username,))
+    result = cursor.fetchone()
+    if result and result[0]:
+        return url_for('static', filename='profile_pics/' + result[0])
+    else:
+        return url_for('static', filename='default_profile_pic.jpg')
+
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 
 @app.route('/')
 def home():
@@ -73,18 +86,23 @@ def post_message():
     message = request.form.get('message')
 
     if username and message:
-        connection = get_db_connection()
-        cursor = connection.cursor()
-        cursor.execute('INSERT INTO messages (username, content) VALUES (?, ?)', (username, message))
-        connection.commit()
+        # Check if the message is the delete command
+        if message.lower() == '/delete all messages':
+            delete_all_messages()  # Call function to delete all messages
+        else:
+            connection = get_db_connection()
+            cursor = connection.cursor()
+            cursor.execute('INSERT INTO messages (username, content) VALUES (?, ?)', (username, message))
+            connection.commit()
 
     return redirect('/')
+
 
 @app.route('/update_profile_pic', methods=['POST'])
 def update_profile_pic():
     if 'username' in session and 'file' in request.files:
         username = session['username']
-        file = request.files['file']
+        file = request.files.get('file')  # Use request.files.get() to retrieve the uploaded file
         
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -117,6 +135,21 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/delete_all_messages', methods=['POST'])
+def delete_all_messages():
+    try:
+        if 'username' in session and session['username'] == 'admin':
+            connection = get_db_connection()
+            cursor = connection.cursor()
+            cursor.execute('DELETE FROM messages')  # Delete all messages
+            connection.commit()
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False, 'error': 'Permission denied'})
+    except Exception as e:
+        print('Error deleting messages:', e)
+        return jsonify({'success': False})
+
 
 # Route to the signup page
 @app.route('/signup', methods=['GET', 'POST'])
@@ -133,6 +166,7 @@ def signup():
             cursor = connection.cursor()
             cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
             connection.commit()
+            session['username'] = username
             return redirect('/')
     return render_template('signup.html')
 
@@ -141,7 +175,6 @@ def logout():
     if 'username' in session:
         session.pop('username', None)
     return redirect('/')
-
 
 @app.route('/delete_message/<int:message_id>', methods=['POST'])
 def delete_message(message_id):
@@ -171,11 +204,17 @@ def delete_message(message_id):
     return redirect('/')
 
 
+
 @app.route('/get_messages')
 def get_messages():
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute('SELECT id, username, content FROM messages ORDER BY id DESC')
+    cursor.execute('''
+        SELECT m.id, m.username, m.content, u.profile_pic
+        FROM messages m
+        LEFT JOIN users u ON m.username = u.username
+        ORDER BY m.id DESC
+    ''')
     messages = cursor.fetchall()
     return jsonify(messages)
 
@@ -183,4 +222,5 @@ def get_messages():
 
 if __name__ == '__main__':
     init_db()  # Initialize the database tables
+    app.jinja_env.globals.update(get_profile_pic=get_profile_pic)
     app.run(debug=True)

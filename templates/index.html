@@ -10,6 +10,7 @@
 body, p, ul, li {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 body {
@@ -39,9 +40,6 @@ body {
     background-color: #333;
 }
 
-.chat-messages {
-    margin-bottom: 20px;
-}
 .delete-button {
     padding: 5px 10px;
     background-color: #d9534f;
@@ -63,18 +61,41 @@ body {
 
 .username {
     font-weight: bold;
+    margin: none;
 }
 
 .message-input {
     width: 100%;
     padding: 10px;
+    padding-top: none;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: none !important;
     background-color: #333;
     color: #fff;
     box-shadow: none;
     border: none;
 }
+
+.profile-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.profile-buttons button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
 
 .submit-button {
     padding: 10px 20px;
@@ -113,15 +134,15 @@ body {
         .navbar-menu li a:hover {
             color: #007bff;
         }
-
 .sidebar {
     flex: 1;
     padding: 20px;
-    background-color: #333;
+    background-color: #222; /* Darken the background color for better contrast */
     border-radius: 0 10px 10px 0;
     box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.5);
+    color: #fff; /* Change text color to white */
+    position: relative; /* Set position to relative for absolute positioning */
 }
-
 .profile {
     text-align: center;
     padding: 20px;
@@ -130,11 +151,54 @@ body {
     margin-bottom: 20px;
 }
 
+.work-in-progress {
+    font-style: italic;
+    text-align: center;
+    margin-top: 20px;
+    color: #ff9900; /* Change color to orange */
+}
+
 .profile-image img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     margin-bottom: 10px;
+}
+
+/* Update the styling for the profile picture input */
+#profile-pic-input {
+    display: none; /* Hide the input visually */
+}
+
+.update-pfp-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.update-pfp-button:hover {
+    background-color: #0056b3;
+}
+
+/* Add styles for the image preview */
+.image-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#profile-pic-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 h6 {
@@ -152,8 +216,24 @@ h6 {
     margin-bottom: 20px;
 }
 
+.chat-messages {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px; /* Add some spacing between the profile picture and the username */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow effect */
+}
+
+
 /* Additional styles for the sidebar content */
 /* ... (Add your additional styles here) ... */
+
 
 
     </style>
@@ -174,7 +254,12 @@ h6 {
                 <div class="chat-messages">
                     {% for message in messages %}
                         <div class="message">
-                            <span class="username">{{ message[1] }}:</span>
+                            <div class="user-profile">
+                                <img style="width: 30px; height: 30px; border-radius: 50%;" class="profile-pic" src="{{ get_profile_pic(message[1]) }}" alt="Profile Picture">
+                                {% if message[3] %}
+                                    <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/' + message[3]) }}" alt="Profile Picture">
+                                {% endif %}
+                            </div>
                             <span class="text">{{ message[2] }}</span>
                             {% if message[1] == session.get('username', 'Anonymous') %}
                                 <form class="delete-form" action="/delete_message/{{ message[0] }}" method="post">
@@ -183,12 +268,13 @@ h6 {
                             {% endif %}
                         </div>
                     {% endfor %}
-                </div>
+                </div>                
                 <form id="message-form" action="/post_message" method="post">
                     <input class="message-input" type="text" name="message" placeholder="Type your message...">
                     <div class="line"></div>
                     <button class="submit-button" type="submit">Send</button>
-                </form>
+                </form>                
+                
             </div>
             
         </div>
@@ -196,58 +282,183 @@ h6 {
         <div class="sidebar">
             <div class="profile">
                 <div class="profile-image">
-                    <img class="retro-image" src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" alt="Profile Picture">
+                    {% if profile_pic is not none %}
+                        <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" alt="Profile Picture">
+                    {% else %}
+                        <!-- Default image or other content if no profile picture is available -->
+                        <img class="profile-pic" src="{{ url_for('static', filename='default_profile_pic.jpg') }}" alt="Default Profile Picture">
+                    {% endif %}
+
+                    <h6 id="username" style="margin-top: none;">
+                        <p>Welcome back, {{ session['username'] }}!</p>
+                        <form class="logout-form" action="/logout" method="post">
+                            <button class="logout-button" type="submit">Logout</button>
+                        </form>
+                    </h6>
+        
                     <form class="update-pfp-form" action="/update_profile_pic" method="post" enctype="multipart/form-data">
-                        <input type="file" name="profile_pic" accept="image/*">
-                        <button class="update-pfp-button" type="submit">Change Profile Picture</button>
-                    </form>
+                        <input type="file" name="file" accept="image/*" id="profile-pic-input" onchange="previewFile()">
+                        <label class="update-pfp-button" for="profile-pic-input">Change Profile Picture</label>
+                        <div class="image-preview">
+                            <img id="profile-pic-preview" src="" alt="Profile Picture Preview">
+                        </div>
+                        <button class="submit-button" type="submit">Upload</button>
+                    </form>                    
                 </div>
-                            
-                <h6 id="username">
-                    Welcome back, {{ session['username'] }}!
-                    <form class="logout-form" action="/logout" method="post">
-                        <button class="logout-button" type="submit">Logout</button>
-                    </form>
-                </h6>
                 <p>{{ current_message }}</p>
+
+                <p style="color: red; font-style: italic; text-align: center; margin-top: 20px;">
+                    This is still a work in progress. Styling and functionality are under development.
+                    Don't be surprised if you encounter any bugs – its a feature lol.
+                </p>
             </div>
             
             <!-- User stats and additional sidebar content -->
         </div>
-        
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function fetchMessages() {
-                fetch('/get_messages')
-                    .then(response => response.json())
-                    .then(messages => {
-                        const messagesContainer = document.querySelector('.chat-messages');
-                        messagesContainer.innerHTML = ''; // Clear the existing messages
-    
-                        messages.forEach(message => {
-                            const messageElement = document.createElement('div');
-                            messageElement.classList.add('message');
-                            messageElement.innerHTML = `
-                                <span class="username">${message[1]}:</span>
-                                <span class="text">${message[2]}</span>
-                                ${message[1] === "{{ session.get('username', 'Anonymous') }}" ? `
-                                    <form class="delete-form" action="/delete_message/${message[0]}" method="post">
-                                        <button class="delete-button" type="submit">Delete</button>
-                                    </form>
-                                ` : ''}
-                            `;
-                            messagesContainer.appendChild(messageElement);
-                        });
-                    });
+
+function previewFile() {
+    const profilePicPreview = document.getElementById("profile-pic-preview");
+    const fileInput = document.getElementById("profile-pic-input");
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    if (file) {
+        reader.onloadend = function () {
+            profilePicPreview.src = reader.result;
+            // Update the Viewer.js instance
+            viewer.update();
+        };
+        reader.readAsDataURL(file);
+    } else {
+        // Clear the preview
+        profilePicPreview.src = "";
+        // Remove the image element from its parent
+        if (profilePicPreview.parentNode) {
+            profilePicPreview.parentNode.removeChild(profilePicPreview);
+        }
+        // Update the Viewer.js instance
+        viewer.update();
+    }
+}
+
+function scrollToLatestMessage() {
+    const messagesContainer = document.querySelector('.chat-messages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.querySelector('.message-input');
+    const messagesContainer = document.querySelector('.chat-messages');
+
+
+
+    // Handle form submission using AJAX
+    messageForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const message = messageInput.value.trim();
+
+        if (message !== '') {
+            const formData = new FormData();
+            formData.append('message', message);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/post_message', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        messageInput.value = '';
+                        fetchAndDisplayMessages(); // Fetch and display messages after posting
+                    } else {
+                        console.error('Error sending message:', xhr.responseText);
+                    }
+                }
+            };
+
+            xhr.send(formData);
+        }
+    });
+
+    function fetchAndDisplayMessages() {
+        fetchMessages(); // Call the fetchMessages function to update the chat interface
+        scrollToLatestMessage(); // Scroll to the latest message after fetching
+    }
+
+    function deleteMessage(messageId) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `/delete_message/${messageId}`, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    fetchAndDisplayMessages(); // Fetch and display messages after deleting
+                } else {
+                    console.error('Error deleting message:', xhr.responseText);
+                }
             }
-    
-            fetchMessages(); // Fetch messages initially
-    
-            // Poll for new messages every 500 milliseconds
-            setInterval(fetchMessages, 1000);
-        });
+        };
+        xhr.send();
+    }
+
+    // Fetch and display messages
+    function fetchMessages() {
+        fetch('/get_messages')
+            .then(response => response.json())
+            .then(messages => {
+                messagesContainer.innerHTML = ''; // Clear existing messages
+                messages.reverse();
+
+                messages.forEach(message => {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+
+                    if (message[3]) {
+                        const profilePicImg = document.createElement('img');
+                        profilePicImg.src = `/static/profile_pics/${message[3]}`;
+                        profilePicImg.alt = 'Profile Picture';
+                        profilePicImg.classList.add('profile-pic');
+
+                        const profilePicContainer = document.createElement('span');
+                        profilePicContainer.classList.add('profile-pic-container');
+                        profilePicContainer.appendChild(profilePicImg);
+                        messageElement.appendChild(profilePicContainer);
+                    }
+
+                    
+
+                    const usernameSpan = document.createElement('span');
+                    usernameSpan.classList.add('username');
+                    const usernameText = document.createTextNode(`${message[1]}:`);
+                    usernameSpan.appendChild(usernameText);
+                    messageElement.appendChild(usernameSpan);
+
+                    const textElement = document.createElement('span');
+                    textElement.classList.add('text');
+                    textElement.textContent = message[2];
+                    messageElement.appendChild(textElement);
+
+                    
+
+                    messagesContainer.appendChild(messageElement);
+                });
+
+                scrollToLatestMessage();
+            })
+            .catch(error => {
+                console.error('Error fetching messages:', error);
+            });
+    }
+
+    // Fetch messages initially and then set up periodic fetching
+    fetchMessages();
+    setInterval(fetchMessages, 1000);
+});
+
+
     </script>
     
     
