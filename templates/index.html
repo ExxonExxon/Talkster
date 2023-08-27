@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Chat Site</title>
+    <style>
+/* Reset some default browser styles */
+body, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    flex: 3;
+    padding: 20px;
+}
+
+.chat-container {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #333;
+}
+
+.chat-messages {
+    margin-bottom: 20px;
+}
+.delete-button {
+    padding: 5px 10px;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Adjust the positioning of delete form */
+.delete-form {
+    display: inline;
+}
+
+.message {
+    margin: 10px 0;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.message-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #333;
+    color: #fff;
+    box-shadow: none;
+    border: none;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Styling for the navbar */
+/* Styling for the navbar */
+.navbar {
+            background-color: #222;
+            padding: 10px 0;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .navbar-menu li {
+            margin-right: 20px;
+        }
+
+        .navbar-menu li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar-menu li a:hover {
+            color: #007bff;
+        }
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 0 10px 10px 0;
+    box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.profile {
+    text-align: center;
+    padding: 20px;
+    background-color: #444;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.profile-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+h6 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background-color: rgb(54, 255, 47);
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+/* Additional styles for the sidebar content */
+/* ... (Add your additional styles here) ... */
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="navbar-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Signup</a></li>
+        </ul>
+    </div>
+    
+
+    <div class="container">
+        <div class="content">
+            <div class="chat-container">
+                <div class="chat-messages">
+                    {% for message in messages %}
+                        <div class="message">
+                            <span class="username">{{ message[1] }}:</span>
+                            <span class="text">{{ message[2] }}</span>
+                            {% if message[1] == session.get('username', 'Anonymous') %}
+                                <form class="delete-form" action="/delete_message/{{ message[0] }}" method="post">
+                                    <button class="delete-button" type="submit">Delete</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <form id="message-form" action="/post_message" method="post">
+                    <input class="message-input" type="text" name="message" placeholder="Type your message...">
+                    <div class="line"></div>
+                    <button class="submit-button" type="submit">Send</button>
+                </form>
+            </div>
+            
+        </div>
+
+        <div class="sidebar">
+            <div class="profile">
+                <div class="profile-image">
+                    <img class="retro-image" src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" alt="Profile Picture">
+                    <form class="update-pfp-form" action="/update_profile_pic" method="post" enctype="multipart/form-data">
+                        <input type="file" name="profile_pic" accept="image/*">
+                        <button class="update-pfp-button" type="submit">Change Profile Picture</button>
+                    </form>
+                </div>
+                            
+                <h6 id="username">
+                    Welcome back, {{ session['username'] }}!
+                    <form class="logout-form" action="/logout" method="post">
+                        <button class="logout-button" type="submit">Logout</button>
+                    </form>
+                </h6>
+                <p>{{ current_message }}</p>
+            </div>
+            
+            <!-- User stats and additional sidebar content -->
+        </div>
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function fetchMessages() {
+                fetch('/get_messages')
+                    .then(response => response.json())
+                    .then(messages => {
+                        const messagesContainer = document.querySelector('.chat-messages');
+                        messagesContainer.innerHTML = ''; // Clear the existing messages
+    
+                        messages.forEach(message => {
+                            const messageElement = document.createElement('div');
+                            messageElement.classList.add('message');
+                            messageElement.innerHTML = `
+                                <span class="username">${message[1]}:</span>
+                                <span class="text">${message[2]}</span>
+                                ${message[1] === "{{ session.get('username', 'Anonymous') }}" ? `
+                                    <form class="delete-form" action="/delete_message/${message[0]}" method="post">
+                                        <button class="delete-button" type="submit">Delete</button>
+                                    </form>
+                                ` : ''}
+                            `;
+                            messagesContainer.appendChild(messageElement);
+                        });
+                    });
+            }
+    
+            fetchMessages(); // Fetch messages initially
+    
+            // Poll for new messages every 500 milliseconds
+            setInterval(fetchMessages, 1000);
+        });
+    </script>
+    
+    
+</body>
+</html>
