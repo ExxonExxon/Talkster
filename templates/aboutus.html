@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Taskify</title>
+  <style>
+    /* Internal CSS */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #ffffff;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 10px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: #f2f2f2;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #000000;
+      padding: 5px 15px;
+      font-size: 14px;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #888;
+      text-decoration: underline;
+    }
+
+    .hero {
+      background-image: linear-gradient(#f2f2f2, #e6e6e6);
+      color: #000000;
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    /* Add more styling for other sections if needed */
+    
+    footer {
+      background-color: black;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-content a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .github-icon img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-content a:hover {
+      color: #cecdcd;
+      text-decoration: underline;
+    }
+
+    footer {
+      opacity: 0;
+      animation: fadeInUp 1s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .different-section {
+    padding: 50px 0;
+    text-align: center;
+  }
+
+  .different-section h2 {
+    font-size: 2rem;
+    color: #000000;
+    margin-bottom: 30px;
+  }
+
+  .different-points {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .different-point {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    background-color: #ffffff;
+    transition: transform 0.3s;
+  }
+
+  .different-point i {
+    font-size: 24px;
+    color: #4caf50;
+    margin-bottom: 10px;
+  }
+
+  .different-point p {
+    font-size: 1rem;
+    color: #000000;
+  }
+
+  .different-point:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="#">About</a>
+      <a href="/#features">Features</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <div class="hero">
+    <h1>About Us</h1>
+    <p>Welcome to the About Us page of Tomas! We're passionate about bringing you the best solutions for your tasks and productivity needs.</p>
+  </div>
+  <section class="different-section">
+    <h2>Why Choose Us?</h2>
+    <div class="different-points">
+      <div class="different-point">
+        <i class="fa fa-check-circle"></i>
+        <p>Passion for Productivity</p>
+        <p>We're passionate about helping you achieve your goals. Our team is dedicated to creating features that simplify your task management experience.</p>
+      </div>
+      <div class="different-point">
+        <i class="fa fa-check-circle"></i>
+        <p>User-Centric Design</p>
+        <p>We prioritize your needs. Our user-friendly design and responsive interface ensure that you can easily access and manage your tasks from anywhere.</p>
+      </div>
+      <div class="different-point">
+        <i class="fa fa-check-circle"></i>
+        <p>Continuous Improvement</p>
+        <p>We're committed to continuous improvement. We value your feedback and are always working to enhance our platform to better serve you.</p>
+      </div>
+      <div class="different-point">
+        <i class="fa fa-check-circle"></i>
+        <p>Flexible Task Customization</p>
+        <p>Your workflow is unique. Customize your task groups, priorities, and deadlines according to your preferences.</p>
+      </div>
+      <div class="different-point">
+        <i class="fa fa-check-circle"></i>
+        <p>Seamless Collaboration</p>
+        <p>Collaborate with your team effortlessly. Share tasks, assign responsibilities, and stay in sync for better productivity.</p>
+      </div>
+      <!-- Add more points here as needed -->
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <a href="https://github.com/ExxonExxon/Taskify" class="github-icon" target="_blank">
+        <i style="font-size: 20px;" class="fa fa-github"></i>
+      </a>
+      <a href="#">Terms of Service</a>
+      <a href="#">About</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    // Add Intersection Observer or any other scripting as needed
+
+  </script>
+</body>
+
+</html>

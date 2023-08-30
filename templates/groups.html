@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskify - Groups</title>
+    <style>
+/* Reset */
+body, h1, ul, p, button, input, form {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        
+        /* Light Mode */
+        body.light-mode {
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        body.dark-mode h1 {
+            color: #eee;
+        }
+        
+        /* Header */
+        header {
+            background-color: #1a1a1a;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 8px 20px;
+    font-size: 14px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.color-changer-nav {
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            position: relative;
+            border: none;
+            background-color: transparent !important;
+            cursor: pointer;
+            color: #ccc;
+            background-color: transparent;
+        }
+
+/* Form Elements */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    transition: border-color 0.3s;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+}
+
+/* Typography */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+/* Groups Section */
+.groups {
+    max-width: 600px;
+    margin: 0 auto;
+    color: white;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+/* Lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+}
+
+
+/* Links */
+a {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+body.dark-mode a {
+    color: #eee;
+}
+
+/* Delete Button and Form */
+.delete-form {
+    display: inline;
+    margin-left: 10px;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Add Group Form */
+.add-form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+.add_group_btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+}
+
+.add_group_btn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .add_group_btn {
+        font-size: 16px;
+    }
+}
+
+/* Active Link Style */
+.active {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/home/">Home</a>
+            <a class="active" href="/groups/">Groups</a>
+            <a href="/profile/">Profile</a>
+            <a href="/" onclick="logout()">Logout</a>
+            <button class="color-changer-nav" onclick="toggleDarkLightMode()">
+                <i id="dark-mode-icon" class="{{ icoColor }}"></i>
+            </button>
+        </nav>
+    </header>
+
+    <h1>Your Groups</h1>
+    <div class="groups">
+        <ul>
+            <li><h3 style="margin: none;">Your Groups:</h3></li>
+            {% for group in custom_groups %}
+                <li>
+                    <a style="margin-top: 0 !important; padding-top: 0 !important;">{{ group }}</a>
+                    <form class="delete-form" action="{{ url_for('delete_groups', group_name=group) }}" method="POST">
+                        <button style="margin-top: 0 !important;" class="delete-button" type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+            <form class="add-form" action="/add_group/groups" method="POST">
+                <label for="group_name">Custom Group Name:</label>
+                <input style="background-color: #333;margin-bottom: 2px;width: 97%;color: #eee;" type="text" id="group_name" name="group_name" required>
+                <button class="add_group_btn" type="submit">Add Group</button>
+            </form>
+        </ul>
+    </div>
+    <script>
+    let icoColor = "";
+        document.body.classList.add("transition");
+
+        function deleteTask(taskId) {
+            fetch(`/delete_task/${taskId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+    function toggleDarkLightMode() {
+    const body = document.body;
+    const iconElement = document.getElementById("dark-mode-icon");
+
+    if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        document.cookie = "dark_mode=false; path=/";
+        icoColor = "fa fa-sun-o";
+    } else {
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        document.cookie = "dark_mode=true; path=/";
+        icoColor = "fa fa-moon-o";
+    }
+
+    iconElement.className = icoColor;
+
+    // Add a timeout to remove the transition class after the transition is complete
+    setTimeout(() => {
+        body.classList.remove("transition");
+    }, 500); // 500ms is the duration of the transition
+}
+
+
+    const darkModeCookie = document.cookie.match(/(?:(?:^|.*;\s*)dark_mode\s*=\s*([^;]*).*$)|^.*$/)[1];
+    const iconElement = document.getElementById("dark-mode-icon");
+
+    if (darkModeCookie && darkModeCookie === "true") {
+        document.body.classList.add("dark-mode");
+        icoColor = "fa fa-moon-o";
+    } else {
+        icoColor = "fa fa-sun-o";
+    }
+
+    iconElement.className = icoColor;
+
+    function logout() {
+        // Clear the "user" cookie by setting an empty value and an expired date
+        document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        
+        // Redirect the user to the logout page or any desired page
+        window.location.href = "/";
+    }
+
+    function logout() {
+        // Clear the "user" cookie by setting an empty value and an expired date
+        document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        
+        // Redirect the user to the logout page or any desired page
+        window.location.href = "/";
+    }
+    </script>
+</body>
+</html>

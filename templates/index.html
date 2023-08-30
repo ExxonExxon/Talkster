@@ -1,466 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Chat Site</title>
-    <style>
-/* Reset some default browser styles */
-body, p, ul, li {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  <meta name="google-site-verification" content="wdTKhg9N0p26sZIVtYMJPs0bcDi3f8IAcB5z9YgFdwU" />
+  <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Taskify is a free task management website that helps you stay organized and productive. Easily create, prioritize, and manage your tasks online.">
+  <meta name="keywords" content="task management, to-do list, productivity, organize tasks, task organizer">
+  <title>Taskify</title>
+  <style>
+   /* Reset default styles */
+body, h1, h2, p, a, ul, li, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: Arial, sans-serif;
+  vertical-align: baseline;
 }
 
+/* Base styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #333;
-    color: #fff;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #333;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.content {
-    flex: 3;
-    padding: 20px;
-}
-
-.chat-container {
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #333;
-}
-
-.delete-button {
-    padding: 5px 10px;
-    background-color: #d9534f;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-/* Adjust the positioning of delete form */
-.delete-form {
-    display: inline;
-}
-
-.message {
-    margin: 10px 0;
-}
-
-.username {
-    font-weight: bold;
-    margin: none;
-}
-
-.message-input {
-    width: 100%;
-    padding: 10px;
-    padding-top: none;
-    border-radius: 5px;
-    margin-top: none !important;
-    background-color: #333;
-    color: #fff;
-    box-shadow: none;
-    border: none;
-}
-
-.profile-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.profile-buttons button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out;
+/* Header */
+header {
+  background-color: #1a1a1a;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
-.submit-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-/* Styling for the navbar */
-/* Styling for the navbar */
-.navbar {
-            background-color: #222;
-            padding: 10px 0;
-        }
-
-        .navbar-menu {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            padding: 0;
-        }
-
-        .navbar-menu li {
-            margin-right: 20px;
-        }
-
-        .navbar-menu li a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .navbar-menu li a:hover {
-            color: #007bff;
-        }
-.sidebar {
-    flex: 1;
-    padding: 20px;
-    background-color: #222; /* Darken the background color for better contrast */
-    border-radius: 0 10px 10px 0;
-    box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.5);
-    color: #fff; /* Change text color to white */
-    position: relative; /* Set position to relative for absolute positioning */
-}
-.profile {
-    text-align: center;
-    padding: 20px;
-    background-color: #444;
-    border-radius: 5px;
-    margin-bottom: 20px;
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 5px 15px;
+  font-size: 14px;
+  position: relative;
 }
 
-.work-in-progress {
-    font-style: italic;
-    text-align: center;
-    margin-top: 20px;
-    color: #ff9900; /* Change color to orange */
+nav a:hover {
+  color: #007bff;
+  text-decoration: underline;
 }
 
-.profile-image img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+/* Hero section */
+.hero {
+  background-image: linear-gradient(#282828, #1e1e1e);
+  color: #ffffff;
+  text-align: center;
+  padding: 100px 0;
 }
 
-/* Update the styling for the profile picture input */
-#profile-pic-input {
-    display: none; /* Hide the input visually */
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
 }
 
-.update-pfp-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 4px 8px;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out;
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
-.update-pfp-button:hover {
-    background-color: #0056b3;
+.hero button {
+  background-color: #3f3f3f;
+  color: #ffffff;
+  border: 1px solid #000000;
+  padding: 10px 30px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-/* Add styles for the image preview */
-.image-preview {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+.hero button:hover {
+  transform: scale(1.1);
 }
 
-#profile-pic-preview {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+/* Features section */
+.features {
+  background-color: #1e1e1e;
+  padding: 50px 0;
 }
 
-h6 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 10px;
+.features h1 {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 30px;
 }
 
-.line {
-    height: 1px;
-    width: 100%;
-    background-color: rgb(54, 255, 47);
-    margin-top: 5px;
-    margin-bottom: 20px;
+.top-features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.chat-messages {
-    max-height: 400px; /* Adjust the height as needed */
-    overflow-y: auto;
+.feature-card {
+  flex: 1 0 40%;
+  background-color: #2a2a2a; /* Dark gray background */
+  border: 1px solid #444;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  transition: all ease 0.3s;
 }
 
-.profile-pic {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px; /* Add some spacing between the profile picture and the username */
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow effect */
+.feature-card:hover {
+  transform: scale(1.05);
 }
 
 
-/* Additional styles for the sidebar content */
-/* ... (Add your additional styles here) ... */
+.feature-card h2 {
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.feature-card p {
+  color: #ffffff;
+}
+
+/* Different section */
+.different-section {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.different-section h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.different-points {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.different-point {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #444;
+  border-radius: 10px;
+  background-color: #282828;
+  transition: transform 0.3s;
+}
+
+.different-point i {
+  font-size: 24px;
+  color: #4caf50; /* Vibrant green */
+  margin-bottom: 10px;
+}
+.different-point p {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.different-point:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+  background-color: #282828;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-content a:hover,
+.footer-content i:hover {
+
+  text-decoration: underline;
+}
+
+.github-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-content a:hover {
+  color: #cecdcd;
+  text-decoration: underline;
+}
+
+.statistics {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.statistics h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.statistics-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.statistic {
+  flex: 1;
+  padding: 20px;
+  background-color: #282828;
+  border: 1px solid #444;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.statistic:hover {
+  transform: scale(1.1);
+}
+
+.stat-value {
+  font-size: 2rem;
+  color: #4caf50;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #ffffff;
+}
 
 
 
-    </style>
+
+/* Animations */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .hero button {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+.login_signup_btn {
+  border: 1px whitesmoke solid;
+  margin-left: 5px;
+  border-radius: 4px;
+}
+
+.login_signup_btn:hover {
+  background-color: whitesmoke;
+  color: black;
+  text-decoration: underline;
+}
+
+  </style>
 </head>
+
 <body>
-    <div class="navbar">
-        <ul class="navbar-menu">
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/signup">Signup</a></li>
-        </ul>
-    </div>
+  <header>
+    <nav>
+      <a href="#">Home</a>
+      <a href="/about">About</a>
+      <a href="#features">Features</a>
+      <a href="/contact">Contact</a>
+      <a href="/updates">Updates</a>
+      <a class="login_signup_btn" href="/login">Login</a>
+      <a class="login_signup_btn" href="/signup">Signup</a>
+    </nav>
+  </header>
+  <div class="hero">
+    <h1>Welcome to Taskify</h1>
+    <p>Welcome to Taskify A Free Task Managment Site. Get started now!</p>
+    <button onclick="window.location.href='/signup';">Get Started</button>
+  </div>
+
+  <div class="features" id="features">
+    <h1 style="font-size: 33px;">Our Features</h1>
+    <div class="top-features">
+      <div class="feature-card">
+          <h2>Easily Create and Delete Tasks</h2>
+          <p>Create and delete tasks with just a few clicks. With our intuitive interface, you can quickly add new tasks to your list and remove completed tasks, keeping your to-do list organized and up-to-date. Stay on top of your tasks effortlessly.</p>
+      </div>
+      <div class="feature-card">
+          <h2>Prioritize Your Tasks</h2>
+          <p>Effortlessly manage your workload by marking tasks as high, medium, or low priority. By categorizing tasks based on their importance, you can focus your attention on what matters most, ensuring that you stay productive and meet your goals efficiently.</p>
+      </div>
+      <div class="feature-card">
+          <h2>Create Task Groups</h2>
+          <p>Stay organized by creating task groups. Whether you're working on multiple projects, following various topics, or pursuing different goals, you can easily categorize your tasks into groups. This feature ensures that you can maintain clarity and structure in your task management process.</p>
+      </div>
+      <div class="feature-card">
+          <h2>Mobile Friendly and User-Friendly</h2>
+          <p>Access your tasks from anywhere using our mobile-friendly design. Our website is optimized to work seamlessly on mobile devices, allowing you to manage your tasks on the go. With a user-friendly interface, you can efficiently navigate through your tasks and stay productive, no matter where you are.</p>
+      </div>
+  </div>  
+    <section class="different-section">
+      <h2>Why Taskify is Different</h2>
+      <div class="different-points">
+        <div class="different-point">
+          <i class="fa fa-check-circle"></i>
+          <p>Free to Use</p>
+          <p>Taskify is completely free to use, ensuring that you can access all of its features without any cost. No subscription fees or hidden charges.</p>
+        </div>
+        <div class="different-point">
+          <i class="fa fa-check-circle"></i>
+          <p>Easy to Use</p>
+          <p>Taskify's intuitive interface and user-friendly design make it simple to create, manage, and organize your tasks. No steep learning curves or complex setups.</p>
+        </div>
+        <div class="different-point">
+          <i class="fa fa-check-circle"></i>
+          <p>Mobile-Friendly</p>
+          <p>Access your tasks anytime, anywhere. Taskify's responsive design ensures that you can stay productive on both desktop and mobile devices.</p>
+        </div>
+      </div>
+      <div class="different-points">
+        <div class="different-point">
+          <i class="fa fa-check-circle"></i>
+          <p>Flexible Task Groups</p>
+          <p>Stay organized your way. Create and customize task groups based on projects, topics, or goals. Tailor Taskify to your unique workflow.</p>
+        </div>
+        <div class="different-point">
+          <i class="fa fa-check-circle"></i>
+          <p>Stay Organized</p>
+          <p>Taskify empowers you to prioritize tasks, set deadlines, and categorize them effectively. Stay on top of your to-do list and boost productivity.</p>
+        </div>
+        <div class="different-point">
+          <i class="fa fa-check-circle"></i>
+          <p>Free to Use</p>
+          <p>Taskify is completely free to use, ensuring that you can access all of its features without any cost. No subscription fees or hidden charges.</p>
+        </div>
+      </div>
+    </section>
     
-
-    <div class="container">
-        <div class="content">
-            <div class="chat-container">
-                <div class="chat-messages">
-                    {% for message in messages %}
-                        <div class="message">
-                            <div class="user-profile">
-                                <img style="width: 30px; height: 30px; border-radius: 50%;" class="profile-pic" src="{{ get_profile_pic(message[1]) }}" alt="Profile Picture">
-                                {% if message[3] %}
-                                    <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/' + message[3]) }}" alt="Profile Picture">
-                                {% endif %}
-                            </div>
-                            <span class="text">{{ message[2] }}</span>
-                            {% if message[1] == session.get('username', 'Anonymous') %}
-                                <form class="delete-form" action="/delete_message/{{ message[0] }}" method="post">
-                                    <button class="delete-button" type="submit">Delete</button>
-                                </form>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>                
-                <form id="message-form" action="/post_message" method="post">
-                    <input class="message-input" type="text" name="message" placeholder="Type your message...">
-                    <div class="line"></div>
-                    <button class="submit-button" type="submit">Send</button>
-                </form>                
-                
-            </div>
-            
+    <section class="statistics">
+      <h2>Statistics</h2>
+      <div class="statistics-container">
+        <div class="statistic">
+          <span class="stat-value">{{ tasks_completed }}</span>
+          <span class="stat-label">Tasks Completed</span>
         </div>
-
-        <div class="sidebar">
-            <div class="profile">
-                <div class="profile-image">
-                    {% if profile_pic is not none %}
-                        <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" alt="Profile Picture">
-                    {% else %}
-                        <!-- Default image or other content if no profile picture is available -->
-                        <img class="profile-pic" src="{{ url_for('static', filename='default_profile_pic.jpg') }}" alt="Default Profile Picture">
-                    {% endif %}
-
-                    <h6 id="username" style="margin-top: none;">
-                        <p>Welcome back, {{ session['username'] }}!</p>
-                        <form class="logout-form" action="/logout" method="post">
-                            <button class="logout-button" type="submit">Logout</button>
-                        </form>
-                    </h6>
-        
-                    <form class="update-pfp-form" action="/update_profile_pic" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file" accept="image/*" id="profile-pic-input" onchange="previewFile()">
-                        <label class="update-pfp-button" for="profile-pic-input">Change Profile Picture</label>
-                        <div class="image-preview">
-                            <img id="profile-pic-preview" src="" alt="Profile Picture Preview">
-                        </div>
-                        <button class="submit-button" type="submit">Upload</button>
-                    </form>                    
-                </div>
-                <p>{{ current_message }}</p>
-
-                <p style="color: red; font-style: italic; text-align: center; margin-top: 20px;">
-                    This is still a work in progress. Styling and functionality are under development.
-                    Don't be surprised if you encounter any bugs – its a feature lol.
-                </p>
-            </div>
-            
-            <!-- User stats and additional sidebar content -->
+        <div class="statistic">
+          <span class="stat-value">{{ number_of_users }}</span>
+          <span class="stat-label">Users Registered</span>
         </div>
+        <div class="statistic">
+          <span class="stat-value">100%</span>
+          <span class="stat-label">User Satisfaction</span>
+        </div>
+      </div>
+    </section>
+    
+  </div>
+
+
+  <footer>
+    <div class="footer-content">
+      <a href="https://github.com/ExxonExxon/Taskify" class="github-icon" target="_blank">
+        <i style="font-size: 20px;" class="fa fa-github"></i>
+      </a>
+      <a href="/terms-of-services">Terms of Service</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact Us</a>
     </div>
+  </footer>
 
-    <script>
+  <script>
+    const statistics = document.querySelectorAll('.statistic');
+    let currentStatisticIndex = 0;
 
-function previewFile() {
-    const profilePicPreview = document.getElementById("profile-pic-preview");
-    const fileInput = document.getElementById("profile-pic-input");
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-
-    if (file) {
-        reader.onloadend = function () {
-            profilePicPreview.src = reader.result;
-            // Update the Viewer.js instance
-            viewer.update();
-        };
-        reader.readAsDataURL(file);
-    } else {
-        // Clear the preview
-        profilePicPreview.src = "";
-        // Remove the image element from its parent
-        if (profilePicPreview.parentNode) {
-            profilePicPreview.parentNode.removeChild(profilePicPreview);
-        }
-        // Update the Viewer.js instance
-        viewer.update();
+    function updateStatistics() {
+      statistics[currentStatisticIndex].classList.remove('active');
+      currentStatisticIndex = (currentStatisticIndex + 1) % statistics.length;
+      statistics[currentStatisticIndex].classList.add('active');
     }
-}
 
-function scrollToLatestMessage() {
-    const messagesContainer = document.querySelector('.chat-messages');
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
+    // Update statistics every 3 seconds
+    setInterval(updateStatistics, 3000);
 
+    // Initialize the first statistic
+    statistics[currentStatisticIndex].classList.add('active');
 
-document.addEventListener("DOMContentLoaded", function() {
-    const messageForm = document.getElementById('message-form');
-    const messageInput = document.querySelector('.message-input');
-    const messagesContainer = document.querySelector('.chat-messages');
+    // Tron-ify the Intersection Observer to animate features and Recognizer
+    const recognizerCards = document.querySelectorAll('.feature-card');
+    const recognizerFooter = document.querySelector('footer');
 
+    const tronOptions = {
+      threshold: 0.2
+    };
 
-
-    // Handle form submission using AJAX
-    messageForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const message = messageInput.value.trim();
-
-        if (message !== '') {
-            const formData = new FormData();
-            formData.append('message', message);
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/post_message', true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        messageInput.value = '';
-                        fetchAndDisplayMessages(); // Fetch and display messages after posting
-                    } else {
-                        console.error('Error sending message:', xhr.responseText);
-                    }
-                }
-            };
-
-            xhr.send(formData);
+    const animateRecognizer = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 1s forwards';
+          observer.unobserve(entry.target);
         }
+      });
+    };
+
+    const recognizerFooterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 1s forwards';
+        }
+      });
+    }, tronOptions);
+
+    recognizerCards.forEach(card => {
+      const recognizerObserver = new IntersectionObserver(animateRecognizer, tronOptions);
+      recognizerObserver.observe(card);
     });
 
-    function fetchAndDisplayMessages() {
-        fetchMessages(); // Call the fetchMessages function to update the chat interface
-        scrollToLatestMessage(); // Scroll to the latest message after fetching
-    }
+    recognizerFooterObserver.observe(recognizerFooter);
 
-    function deleteMessage(messageId) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', `/delete_message/${messageId}`, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    fetchAndDisplayMessages(); // Fetch and display messages after deleting
-                } else {
-                    console.error('Error deleting message:', xhr.responseText);
-                }
-            }
-        };
-        xhr.send();
-    }
-
-    // Fetch and display messages
-    function fetchMessages() {
-        fetch('/get_messages')
-            .then(response => response.json())
-            .then(messages => {
-                messagesContainer.innerHTML = ''; // Clear existing messages
-                messages.reverse();
-
-                messages.forEach(message => {
-                    const messageElement = document.createElement('div');
-                    messageElement.classList.add('message');
-
-                    if (message[3]) {
-                        const profilePicImg = document.createElement('img');
-                        profilePicImg.src = `/static/profile_pics/${message[3]}`;
-                        profilePicImg.alt = 'Profile Picture';
-                        profilePicImg.classList.add('profile-pic');
-
-                        const profilePicContainer = document.createElement('span');
-                        profilePicContainer.classList.add('profile-pic-container');
-                        profilePicContainer.appendChild(profilePicImg);
-                        messageElement.appendChild(profilePicContainer);
-                    }
-
-                    
-
-                    const usernameSpan = document.createElement('span');
-                    usernameSpan.classList.add('username');
-                    const usernameText = document.createTextNode(`${message[1]}:`);
-                    usernameSpan.appendChild(usernameText);
-                    messageElement.appendChild(usernameSpan);
-
-                    const textElement = document.createElement('span');
-                    textElement.classList.add('text');
-                    textElement.textContent = message[2];
-                    messageElement.appendChild(textElement);
-
-                    
-
-                    messagesContainer.appendChild(messageElement);
-                });
-
-                scrollToLatestMessage();
-            })
-            .catch(error => {
-                console.error('Error fetching messages:', error);
-            });
-    }
-
-    // Fetch messages initially and then set up periodic fetching
-    fetchMessages();
-    setInterval(fetchMessages, 1000);
-});
-
-
-    </script>
-    
-    
+  </script>
 </body>
+
 </html>

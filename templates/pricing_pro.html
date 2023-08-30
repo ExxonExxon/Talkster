@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Plan - Taskify</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Sidebar Navigation */
+.sidebar {
+    width: 250px;
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto; /* Add scrolling to sidebar if content exceeds height */
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 5px;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+.sidebar button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sidebar button:hover {
+    background-color: #0056b3;
+}
+
+        .main-content {
+            flex: 2;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        ul {
+            list-style-type: disc;
+            color: #555;
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .purchase-btn {
+            background-color: #ff5722;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .purchase-btn:hover {
+            background-color: #e64a19;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar">
+                <h2>Welcome, {{ username }}</h2>
+                <ul>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="#tasks">Tasks</a></li>
+                    <li><a href="#addgroup">Add Group</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <!-- Toggle Switch Button -->
+                    <label class="toggle-switch">
+                        <input type="checkbox" onclick="toggleDarkLightMode()" {{ dark_mode_checked }}>
+                        <div class="slider"></div>
+                    </label>
+                </ul>
+            </div>
+        </div>
+        <div class="main-content">
+            <h2>Premium Features</h2>
+            <p>Upgrade to our Pro Plan and unlock a world of enhanced task management and collaboration. Enjoy the following benefits:</p>
+            <ul>
+                <li>Advanced task organization and categorization</li>
+                <li>Real-time collaboration with your team</li>
+                <li>Set priorities and deadlines to stay on track</li>
+                <li>Receive reminders & notifications on multiple devices</li>
+            </ul>
+            <p>With our Pro Plan, you'll experience a new level of productivity and efficiency in managing your tasks and projects.</p>
+            <form>
+                <div class="form-group">
+                    <label for="cardNumber">Credit Card Number</label>
+                    <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-group">
+                    <label for="cardName">Cardholder Name</label>
+                    <input type="text" id="cardName" name="cardName" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date</label>
+                    <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123">
+                </div>
+                <button type="submit" class="purchase-btn">Purchase</button>
+            </form>
+        </div>
+    </div>
+    <!-- ... (mode switch button from home.html) ... -->
+    <script>
+        // ... (JavaScript code from home.html) ...
+    </script>
+</body>
+
+</html>

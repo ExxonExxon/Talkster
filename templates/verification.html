@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Page</title>
+  <style>
+    /* Internal CSS */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f0f0;
+    }
+
+    .verification-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .verification-box {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .verification-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .verification-input {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .verification-btn {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .verification-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="verification-container">
+    <div class="verification-box">
+      <h1 class="verification-title">Verification Code</h1>
+      <form method="post" action="/check_verification">
+        <input type="text" name="verificationCode" class="verification-input" placeholder="Enter Verification Code" required>
+        <button type="submit" class="verification-btn">Verify</button>
+        {{ allowed }}
+        <a href="/login">Back to login</a>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

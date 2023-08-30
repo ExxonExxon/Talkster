@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskify - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            transition: background-color 0.5s, color 0.5s; /* Add this line for transition effect */
+        }
+
+        body.dark-mode .link-for-task {
+            color: white;
+        }
+
+        .link-for-task {
+            color: rgb(0, 119, 255);
+        }
+
+        .active {
+            text-decoration: underline;
+        }
+
+        body.light-mode {
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        body.dark-mode h1 {
+            color: #eee;
+        }
+
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Header */
+/* Header */
+header {
+  background-color: #1a1a1a;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 215px;
+}
+
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 5px 15px;
+  font-size: 14px;
+  position: relative;
+}
+
+nav a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+        .color-changer-nav {
+            text-decoration: none;
+            color: #ffffff;
+            padding: 5px 15px;
+            font-size: 14px;
+            position: relative;
+            background-color: transparent;
+        }
+
+        body.dark-mode .color-changer-nav {
+            color: #ccc;
+            background-color: transparent;
+        }
+
+        body.dark-mode nav a {
+            color: #ccc;
+        }
+
+
+        /* Improved styling for form elements */
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        /* Styling for the "Add Task" button */
+        .submit-button {
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark mode styling for form elements */
+        body.dark-mode .input-field,
+        body.dark-mode textarea {
+            background-color: #444;
+            color: #fff;
+            border-color: #555;
+        }
+
+        /* Dark mode styling for "Add Task" button */
+        body.dark-mode .submit-button {
+            background-color: #222;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 300px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .add-form {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .add-form input[type="text"],
+        .add-form textarea,
+        .add-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+            align-items: center;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .button-row select {
+            margin-right: 0; /* Remove margin-right for spacing */
+        }
+
+        button[type="submit"],
+        button {
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        body.dark-mode button[type="submit"],
+        button {
+            background-color: #222;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-item {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .task-item:hover {
+            background-color: #f5f5f5;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-item strong {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .task-item p {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+
+        .task-item button {
+            padding: 8px 12px;
+            background-color: #e74c3c; /* Red color */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .task-item button:hover {
+            background-color: #c0392b; /* Darker red color on hover */
+        }
+
+
+
+        body.dark-mode .task-item {
+            background-color: #222;
+        }
+
+        body.dark-mode select {
+            background-color: #333;
+            color: white;
+        }
+
+        body.dark-mode .task-item button {
+            background-color: rgb(216, 15, 15);
+        }
+
+        body.dark-mode .task-item button:hover {
+            background-color: rgb(151, 31, 31);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .sidebar .a_links {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #444;
+        }
+
+            .sidebar .add-form {
+                margin-top: auto;
+            }
+
+            .sidebar label {
+                color: #ccc;
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            .sidebar input[type="text"] {
+                width: 90%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #555;
+                border-radius: 5px;
+                background-color: #444;
+                color: #fff;
+                transition: border-color 0.3s;
+            }
+
+            .sidebar input[type="text"]:focus {
+                border-color: #777;
+                outline: none;
+            }
+
+            .add_group_btn {
+                background-color: #555;
+                color: #fff;
+                border: none;
+                padding: 5px 92px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .add_group_btn:hover {
+                background-color: #777;
+            }
+
+            .delete-button {
+                background-color: #ff4d4d;
+                color: #fff;
+                border: 1px solid #ff4d4d;
+                padding: 6px 12px !important;
+                cursor: pointer;
+                transition: ease 0.3s;
+            }
+
+            .delete-button:hover {
+                background-color: #b33434 !important;
+            }
+
+            @media (max-width: 768px) {
+                .content {
+                    margin: 0 2px; /* Adjust margins for smaller screens */
+                    padding: 10px;
+                    margin-left: 0; /* Reset margin for small screens */
+                }
+
+                .sidebar {
+                    display: none;
+                }
+
+                .button-row {
+                    flex-direction: column;
+                }
+
+                .sidebar li {
+                width: 95%;
+                }
+
+                nav {
+                    display: flex;
+                    flex-direction: row; /* Change to row layout */
+                    justify-content: space-between; /* Distribute links evenly */
+                    align-items: center; /* Center align vertically */
+                    background-color: #f2f2f2;
+                    margin-left: 0; /* Reset margin for small screens */
+                    padding: 5px 10px; /* Add some padding for better spacing */
+                }
+
+            }
+
+            .no-style {
+                color: white;
+                text-decoration: underline;
+            }
+
+        .sidebar p {
+            margin: none !important;
+            padding: none !important;
+        }
+
+/* Styles for search and group elements */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#searchInput {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid #4CAF50; /* Green color */
+    padding: 5px;
+    margin: 5px;
+    font-size: 12px;
+    color: #000000;
+    transition: border-color 0.3s, color 0.3s; /* Added color transition */
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #45a049; /* Darker green color on focus */
+}
+
+body.dark-mode #searchInput {
+    color: #ffff;
+}
+
+.search-button,
+.group-filter {
+    background-color: #4CAF50; /* Green color */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover,
+.group-filter:hover {
+    background-color: #45a049; /* Darker green color on hover */
+}
+
+.datetime-input {
+        font-size: 12px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: white;
+        color: #333;
+        transition: border-color 0.3s;
+    }
+
+    .datetime-input:focus {
+        outline: none;
+        border-color: #4CAF50; /* Green color on focus */
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add a subtle box-shadow */
+    }
+
+    /* Dark mode styling for datetime input */
+    body.dark-mode .datetime-input {
+        background-color: #444;
+        color: white;
+        border-color: #555;
+    }
+
+    .task-item p.due-date {
+        color: #e74c3c; /* Red color */
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .tutorial-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+
+}
+
+.tutorial-content ol {
+    list-style: none;
+    padding-left: 0; /* Optional: To remove default left padding */
+}
+
+/* Style for the tutorial popup */
+.tutorial-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for the tutorial popup */
+.tutorial-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for the tutorial popup */
+.tutorial-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for the tutorial content box */
+.tutorial-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Style for the tutorial title */
+.tutorial-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style for the tutorial text */
+.tutorial-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Style for the close button */
+.close-button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.close-button:hover {
+    background-color: #d32f2f;
+}
+
+.profile-picture-container {
+        margin-bottom: 20px;
+    }
+
+    .profile-picture {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+
+    </style>
+</head>
+<body class="{{ dark_mode_class }}">
+    <header>
+        <nav>
+            <a class="active" href="">Home</a>
+            <a href="/groups/">Groups</a>
+            <a href="/profile/">Profile</a>
+            <a style="cursor: pointer;" onclick="logout()">Logout</a>
+            <button class="color-changer-nav" onclick="toggleDarkLightMode()">
+                <i id="dark-mode-icon" class="{{ icoColor }}"></i>
+            </button>
+        </nav>
+    </header>
+
+    <div class="sidebar">
+        <div class="profile-picture-container">
+            <img src="/static/pfp/{{ pfp }}" alt="Profile Picture" class="profile-picture">
+        </div>
+        <p class="version-style">Version <a style="color: white;" href="/updates">Beta 1.6</a></p>
+        <p style="font-size: 10px;margin: none;padding-bottom: 0;">Want to file a bug or add/remove feature <a class="no-style" href="/contact">Contact Us</a></p>
+        <ul>
+            <li><h3 style="margin: none;">Your Groups:</h3></li>
+            {% for group in custom_groups %}
+                <li>
+                    <a>{{ group }}</a>
+                    <form class="delete-form" action="{{ url_for('delete_group', group_name=group) }}" method="POST">
+                        <button style="background-color: #d62929;" type="submit" class="delete-button">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+            <form action="/add_group" method="post">
+                <input style="font-size: 12px;" type="text" name="group_name" placeholder="Add a New Group!">
+                <input type="submit" class="delete-button">
+            </form>
+    </div>
+
+    
+
+    <div class="content">
+        <h1 id="currentTime"></h1>
+
+        <form class="add-form" action="/add_task" method="POST">
+            <input class="input-field" placeholder="Task Title" type="text" id="title" name="title" required>
+            <textarea class="input-field" placeholder="Description" id="description" name="description"></textarea>
+            <div class="button-row">
+                <select class="input-field" id="group" name="group" required>
+                    <option value="">Select Group</option>
+                    {% for group in custom_groups %}
+                        <option value="{{ group }}">{{ group }}</option>
+                    {% endfor %}
+                </select>
+                <select class="input-field" id="importance" name="importance">
+                    <option value="">Priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <input class="input-field datetime-input" type="datetime-local" id="datetime" name="due_date">
+            </div>
+            <button class="submit-button" type="submit">Add Task</button>
+        </form>
+        
+        
+        
+
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search tasks...">
+            <button class="search-button" onclick="searchTasks()">Search</button>
+            <select class="group-filter" id="groupFilter" onchange="filterByGroup()">
+                <option value="">All Groups</option>
+                {% for group in custom_groups %}
+                    <option value="{{ group }}">{{ group }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="taskResults" style="margin-bottom: 20px;"></div>
+        {% if tasks|length == 0 %}
+            <p>Looks like there are no tasks or groups. Add some!</p>
+        {% else %}
+            <ul class="task-list">
+                {% for task in tasks %}
+                    {% if task.title or task.description %}
+                        <li class="task-item" data-group="{{ task.group_name }}" data-due-date="{{ task.due_date }}">
+                            <strong>{{ task.title }}</strong>
+                            {% if task.description %}
+                                <p>{{ task.description | safe }}</p>  <!-- Use the 'safe' filter here -->
+                            {% endif %}
+                            <p>Group: {{ task.group_name }}</p>
+                            <p>Importance: {{ task.importance }}</p>
+                            {% if task.due_date %}
+                                <p class="due-date">Due in: <span id="time-remaining" data-due-date="{{ task.due_date }}"></span></p>
+                            {% else %}
+                                <p class="due-date">No Due Date assigned</p>
+                            {% endif %}
+                            <button onclick="deleteTask({{ task.id }})">Complete</button>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        </div>
+
+
+    </div>
+
+    <div id="tutorial-popup" class="tutorial-popup">
+        <div class="tutorial-content">
+            <h2>Welcome to Taskify!</h2>
+            <p>This is your first time here. Let's get started:</p>
+            <ul>
+                <li><strong>Create a new task:</strong> Click the "+" button in the sidebar to add a new task.</li>
+                <br>
+                <li><strong>Set task details:</strong> Provide a title, due date, group, and importance. Description is optional.</li>
+                <br>
+                <li><strong>Get notifications:</strong> Receive notifications for tasks with approaching due dates when actively using the website on the home page.</li>
+                <br>
+                <li><strong>Search for tasks:</strong> Use the search feature to find tasks or filter them by group.</li>
+                <br>
+                <li><strong>Complete tasks:</strong> Mark tasks as completed by clicking the "Complete" button.</li>
+                <br>
+                <li><strong>Dark Mode/Light Mode:</strong> Change from dark mode and light mode in the navigation panel.</li>
+            </ul>
+            <button id="close-tutorial">Got it</button>
+        </div>
+    </div>
+    
+    
+    
+
+    <script>
+        let icoColor = "";
+        let editingTaskId = null;
+        function showNotification(taskTitle, message) {
+    const options = {
+        body: message,
+        icon: 'path_to_your_notification_icon.png' // Replace with your icon URL
+    };
+
+    new Notification(taskTitle, options);
+}
+
+let approachingNotifications = {}; // To track approaching notifications
+let dueDateNotifications = {}; // To track due date notifications
+let overdueNotifications = {}; // To track overdue notifications
+
+function showNotification(taskTitle, message) {
+    const options = {
+        body: message,
+        icon: 'path_to_your_notification_icon.png' // Replace with your icon URL
+    };
+
+    new Notification(taskTitle, options);
+}
+
+function time_remaining(due_date) {
+    const now = new Date();
+    const due = new Date(due_date);
+    const diff = due - now;
+
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    if (diff <= 0) {
+        const overdueTime = Math.abs(diff);
+        const overdueDays = Math.floor(overdueTime / (24 * 60 * 60 * 1000));
+        const overdueHours = Math.floor((overdueTime % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const overdueMinutes = Math.floor((overdueTime % (60 * 60 * 1000)) / (60 * 1000));
+        const overdueSeconds = Math.floor((overdueTime % (60 * 1000)) / 1000);
+
+        return `Overdue by ${overdueDays} days, ${overdueHours} hours, ${overdueMinutes} minutes, and ${overdueSeconds} seconds`;
+    } else if (years >= 2) {
+        const easterEggValue = 102; // Frozen runtime in minutes
+        const watchCount = Math.floor(diff / (easterEggValue * 60 * 1000));
+        return `In the amount of time you need to wait you could watch Frozen ${watchCount} times`;
+    } else if (years > 0) {
+        return years + ' years';
+    } else if (months > 0) {
+        return months + ' months';
+    } else if (days > 0) {
+        return days + ' days';
+    } else if (hours > 0) {
+        return hours + ' hours';
+    } else if (minutes > 0) {
+        return minutes + ' minutes';
+    } else {
+        return seconds + ' seconds';
+    }
+}
+        function updateTimeRemaining() {
+            const dueDateElements = document.querySelectorAll('#time-remaining');
+            dueDateElements.forEach(dueDateElement => {
+                const dueDate = dueDateElement.getAttribute('data-due-date');
+                const timeRemaining = time_remaining(dueDate);
+
+                dueDateElement.textContent = timeRemaining;
+            });
+        }
+
+        // Update time remaining dynamically every minute
+        setInterval(updateTimeRemaining, 1000);
+        updateTimeRemaining();
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const tutorialPopup = document.getElementById('tutorial-popup');
+    const closeTutorialButton = document.getElementById('close-tutorial');
+
+    function centerTutorialPopup() {
+        const popupWidth = tutorialPopup.offsetWidth;
+        const popupHeight = tutorialPopup.offsetHeight;
+
+        const centerX = (window.innerWidth - popupWidth) / 2;
+        const centerY = (window.innerHeight - popupHeight) / 2;
+
+        tutorialPopup.style.left = centerX + 'px';
+        tutorialPopup.style.top = centerY + 'px';
+    }
+
+    function hideTutorialPopup() {
+        tutorialPopup.style.display = 'none';
+    }
+
+    centerTutorialPopup();
+    window.addEventListener('resize', centerTutorialPopup);
+
+    closeTutorialButton.addEventListener('click', () => {
+        hideTutorialPopup();
+        // Set a cookie to indicate that the tutorial has been seen
+        document.cookie = 'tutorialSeen=true; expires=Fri, 31 Dec 9999 23:59:59 GMT';
+    });
+
+    // Check if the tutorial has been seen in the past
+    if (document.cookie.includes('tutorialSeen=true')) {
+        hideTutorialPopup();
+    } else {
+        tutorialPopup.style.visibility = 'visible'; // Make the popup visible
+    }
+});
+
+
+
+
+// Function to set a cookie
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}
+
+// Function to get a cookie by name
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+
+function checkDueDates() {
+    const tasks = document.querySelectorAll('.task-item');
+    const now = new Date();
+
+    tasks.forEach(task => {
+        const taskId = task.dataset.taskId;
+        const dueDate = new Date(task.dataset.dueDate);
+
+        const timeDiff = dueDate - now;
+        const minutesRemaining = Math.floor(timeDiff / (60 * 1000));
+        const hoursRemaining = Math.floor(timeDiff / (60 * 60 * 1000));
+        const daysRemaining = Math.floor(timeDiff / (24 * 60 * 60 * 1000));
+
+        if (minutesRemaining > 0 && minutesRemaining <= 10 && !approachingNotifications[taskId]) {
+            // ... (rest of the code for approaching notifications)
+        } else if (dueDate <= now && timeDiff <= (10 * 60 * 1000) && !dueDateNotifications[taskId]) {
+            showNotification(task.querySelector('strong').textContent, 'Due date has arrived.');
+            dueDateNotifications[taskId] = true; // Mark task as due date reached
+        } else if (dueDate <= now && timeDiff <= (1 * 60 * 60 * 1000) && !overdueNotifications[taskId]) {
+            showNotification(task.querySelector('strong').textContent, 'Task overdue.');
+            overdueNotifications[taskId] = true; // Mark task as overdue
+        } else if (dueDate <= now && timeDiff <= (1 * 24 * 60 * 60 * 1000) && !overdueNotifications[taskId]) {
+            showNotification(task.querySelector('strong').textContent, 'Task overdue.');
+            overdueNotifications[taskId] = true; // Mark task as overdue
+        } else if (dueDate <= now && timeDiff > (1 * 24 * 60 * 60 * 1000)) {
+            const daysOverdue = Math.floor(timeDiff / (24 * 60 * 60 * 1000));
+            if (daysOverdue >= 2 && !overdueNotifications[taskId]) {
+                showNotification(task.querySelector('strong').textContent, `Over 2 years overdue finish it bro.`);
+                overdueNotifications[taskId] = true; // Mark task as overdue
+            } else if (!overdueNotifications[taskId]) {
+                showNotification(task.querySelector('strong').textContent, 'Task overdue.');
+                overdueNotifications[taskId] = true; // Mark task as overdue
+            }
+        }
+    });
+}
+
+// Request permission for notifications
+if ('Notification' in window) {
+    Notification.requestPermission();
+}
+
+// Check due dates periodically
+setInterval(checkDueDates, 1000); // Check every second
+
+
+
+
+
+
+        function searchTasks() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const taskItems = document.querySelectorAll(".task-item");
+
+    const matchingTasks = Array.from(taskItems).filter(item => {
+        const taskTitle = item.querySelector("strong").textContent.toLowerCase();
+        const taskDescription = item.querySelector("p").textContent.toLowerCase();
+        return taskTitle.includes(searchInput) || taskDescription.includes(searchInput);
+    });
+
+    // Hide all task items
+    taskItems.forEach(item => {
+        item.style.display = "none";
+    });
+
+    // Display matching tasks
+    matchingTasks.forEach(item => {
+        item.style.display = "block";
+    });
+
+    // Update the task results message
+    const taskResults = document.getElementById("taskResults");
+    if (matchingTasks.length > 0) {
+        taskResults.textContent = `${matchingTasks.length} tasks found by search.`;
+    } else {
+        taskResults.textContent = "No tasks with those keywords.";
+    }
+}
+
+function searchAndFilterTasks() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const selectedGroup = document.getElementById("groupFilter").value;
+    const taskItems = document.querySelectorAll(".task-item");
+
+    const matchingTasks = Array.from(taskItems).filter(item => {
+        const taskTitle = item.querySelector("strong").textContent.toLowerCase();
+        const taskDescription = item.querySelector("p").textContent.toLowerCase();
+        const taskGroup = item.getAttribute("data-group");
+        
+        const matchesSearch = taskTitle.includes(searchInput) || taskDescription.includes(searchInput);
+        const matchesGroup = selectedGroup === "" || taskGroup === selectedGroup;
+        
+        return matchesSearch && matchesGroup;
+    });
+
+    // Hide all task items
+    taskItems.forEach(item => {
+        item.style.display = "none";
+    });
+
+    // Display matching tasks
+    matchingTasks.forEach(item => {
+        item.style.display = "block";
+    });
+
+    // Update the task results message
+    const taskResults = document.getElementById("taskResults");
+    if (matchingTasks.length > 0) {
+        taskResults.textContent = `${matchingTasks.length} tasks found by search and group.`;
+    } else {
+        taskResults.textContent = "No tasks with those keywords and in the selected group.";
+    }
+}
+
+function filterByGroup() {
+    const selectedGroup = document.getElementById("groupFilter").value;
+    const taskItems = document.querySelectorAll(".task-item");
+
+    const filteredTasks = Array.from(taskItems).filter(item => {
+        const taskGroup = item.getAttribute("data-group");
+        return selectedGroup === "" || taskGroup === selectedGroup;
+    });
+
+    // Hide all task items
+    taskItems.forEach(item => {
+        item.style.display = "none";
+    });
+
+    // Display filtered tasks
+    filteredTasks.forEach(item => {
+        item.style.display = "block";
+    });
+
+    // Update the task results message
+    const taskResults = document.getElementById("taskResults");
+    if (filteredTasks.length > 0) {
+        taskResults.textContent = `${filteredTasks.length} tasks found by group filter.`;
+    } else {
+        taskResults.textContent = "No tasks in the selected group.";
+    }
+}
+
+
+        function showEditForm(taskId) {
+            editingTaskId = taskId;
+
+            // Send a GET request to fetch task details by ID from the server
+            fetch(`/get_task/${taskId}`)  // Adjust the URL to match your server route
+            .then(response => response.json())
+            .then(data => {
+                if (data.task) {
+                    const task = data.task;
+                    document.getElementById("editTitle").value = task.title;
+                    document.getElementById("editDescription").value = task.description;
+                    // ... update other form fields ...
+
+                    document.getElementById("editFormContainer").style.display = "block";
+                } else {
+                    console.error("Task not found");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+
+        function saveEditedTask() {
+            const editedTitle = document.getElementById("editTitle").value;
+            const editedDescription = document.getElementById("editDescription").value;
+            // ... get other edited form field values ...
+
+            const updatedTask = {
+                id: editingTaskId,
+                title: editedTitle,
+                description: editedDescription,
+                // ... other updated fields ...
+            };
+
+            // Send a PUT request to your server endpoint with updatedTask
+            fetch(`/update_task/${editingTaskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedTask)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the task list or perform any necessary UI changes
+                    // Hide the edit form
+                    document.getElementById("editFormContainer").style.display = "none";
+                } else {
+                    // Handle error
+                    console.error(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        document.body.classList.add("transition");
+        let dropdownOpen = false;
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById("myDropdown");
+            
+            if (!dropdownOpen) {
+                dropdown.style.display = "block";
+                dropdownOpen = true;
+            } else {
+                dropdown.style.display = "none";
+                dropdownOpen = false;
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-picture')) {
+                const dropdown = document.getElementById("myDropdown");
+                if (dropdownOpen) {
+                    dropdown.style.display = "none";
+                    dropdownOpen = false;
+                }
+            }
+        }
+
+        function deleteTask(taskId) {
+            fetch(`/delete_task/${taskId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function toggleDarkLightMode() {
+    const body = document.body;
+    const iconElement = document.getElementById("dark-mode-icon");
+
+    if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        document.cookie = "dark_mode=false; path=/";
+        icoColor = "fa fa-sun-o";
+    } else {
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        document.cookie = "dark_mode=true; path=/";
+        icoColor = "fa fa-moon-o";
+    }
+
+    iconElement.className = icoColor;
+
+    // Add a timeout to remove the transition class after the transition is complete
+    setTimeout(() => {
+        body.classList.remove("transition");
+    }, 500); // 500ms is the duration of the transition
+}
+
+
+    const darkModeCookie = document.cookie.match(/(?:(?:^|.*;\s*)dark_mode\s*=\s*([^;]*).*$)|^.*$/)[1];
+    const iconElement = document.getElementById("dark-mode-icon");
+
+    if (darkModeCookie && darkModeCookie === "true") {
+        document.body.classList.add("dark-mode");
+        icoColor = "fa fa-moon-o";
+    } else {
+        icoColor = "fa fa-sun-o";
+    }
+
+    iconElement.className = icoColor;
+
+    function logout() {
+        // Clear the "user" cookie by setting an empty value and an expired date
+        document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        
+        // Redirect the user to the logout page or any desired page
+        window.location.href = "/";
+    }
+
+    // Get the current date and time
+    const currentTime = new Date();
+
+    // Extract hours, minutes, and seconds
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+
+    // Display the time in the <p> tag
+    const timeDisplay = document.getElementById("currentTime");
+    if (hours >= 12) {
+        timeDisplay.textContent = `Good evening, {{ username }}!`;
+    }
+    else if (hours < 12) {
+        timeDisplay.textContent = `Good morning, {{ username }}!`;
+    }
+    
+    </script>
+</body>
+</html>

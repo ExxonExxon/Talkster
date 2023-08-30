@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Taskify</title>
+  <style>
+         /* Internal CSS */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #ffffff; /* Update the background color of the body to white */
+    }
+
+    body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    /* Track */
+    body::-webkit-scrollbar-track {
+      background: #f2f2f2; /* Update the scrollbar track color */
+    }
+
+    /* Handle */
+    body::-webkit-scrollbar-thumb {
+      background: #888; /* Update the scrollbar handle color */
+    }
+
+    /* Handle on hover */
+    body::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    /* Optional: To style the scrollbar buttons (not supported in Firefox) */
+    body::-webkit-scrollbar-button {
+      display: none;
+    }
+
+
+    header {
+      background-color: #ffffff; /* Update the header background color to white */
+      padding: 10px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: #f2f2f2; /* Update the navigation bar background color */
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #000000; /* Update the navigation bar text color to black */
+      padding: 5px 15px;
+      font-size: 14px;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #888;
+      text-decoration: underline;
+    }
+
+    .hero {
+      background-image: linear-gradient(#f2f2f2, #e6e6e6); /* Update the hero section background with a light gradient */
+      color: #000000; /* Update the hero section text color to black */
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #000000;
+      padding: 10px 30px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .features {
+      background-color: #e6e6e6; /* Update the features section background color to white */
+      padding: 50px 0;
+    }
+
+    .features h1 {
+      text-align: center;
+      color: #000000; /* Update the features section text color to black */
+      margin-bottom: 30px;
+    }
+
+    .top-features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .feature-card {
+      flex: 1 0 40%;
+      background-color: #f2f2f2; /* Update the feature cards background color to a light gray */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card h1 {
+      font-size: 1.8rem;
+      color: #000000; /* Update the feature cards text color to black */
+    }
+
+    .feature-card p {
+      color: #000000; /* Update the feature cards text color to black */
+    }
+
+    .pricing {
+      background-color: #e6e6e6; /* Update the pricing section background color to white */
+      color: #000000; /* Update the pricing section text color to black */
+      padding: 50px 0;
+    }
+
+    .pricing h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+
+    .pricing-plans {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .plan {
+      background-color: #f2f2f2; /* Update the pricing plan cards background color to a light gray */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      flex: 1;
+      max-width: 300px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .plan h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #000000; /* Update the pricing plan cards text color to black */
+    }
+
+    .plan p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: #000000; /* Update the pricing plan cards text color to black */
+    }
+
+    .plan ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .plan li {
+      margin-bottom: 12px;
+      font-size: 1rem;
+      color: #000000; /* Update the pricing plan cards text color to black */
+    }
+
+    .plan strong {
+      color: #000000; /* Update the pricing plan cards text color to black */
+    }
+
+    .plan p:last-child {
+      margin-bottom: 0;
+    }
+
+    .price {
+      font-size: 1.5rem;
+    }
+
+    .highlight {
+      color: #4caf50;
+      font-weight: bold;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #4caf50;
+      color: #ffffff;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: 25px;
+      transition: ease 0.3s;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .recommended {
+      border: 2px solid #4caf50;
+      position: relative;
+      z-index: 1;
+    }
+
+    .recommended-label {
+      background-color: #4caf50;
+      color: #ffffff;
+      border-radius: 5px;
+      font-size: 1rem;
+      padding: 5px 10px;
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Animations and Interactivity */
+    /* Animate the hero button on hover */
+    .hero button:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Create a fade-in animation for the feature cards */
+    .feature-card {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: ease 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: scale(1.1);
+    }
+
+    /* Create a bounce effect for the pricing plan cards */
+    .plan {
+      animation: bounceIn 1s forwards;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: black; /* Update the footer background color to a light gray */
+      padding: 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-content a {
+      color: white; /* Update the footer links text color to black */
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .github-icon img {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Animate the footer links on hover */
+    .footer-content a:hover {
+      color: #cecdcd;
+      text-decoration: underline;
+    }
+
+    /* Hide the footer initially */
+    footer {
+      opacity: 0;
+    }
+
+    /* Animate the footer on scroll */
+    footer {
+      animation: fadeInUp 1s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .different-section {
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    .different-section h2 {
+      font-size: 2rem;
+      color: #000000;
+      margin-bottom: 30px;
+    }
+
+    .different-points {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+
+    .different-point {
+      flex: 1;
+      padding: 20px;
+      border: 1px solid #888;
+      border-radius: 10px;
+      background-color: #ffffff;
+      transition: transform 0.3s;
+    }
+
+    .different-point i {
+      font-size: 24px;
+      color: #4caf50;
+      margin-bottom: 10px;
+    }
+
+    .different-point p {
+      font-size: 1rem;
+      color: #000000;
+    }
+
+    .different-point:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form textarea {
+      resize: vertical;
+      height: 216px;
+    }
+
+    form button[type="submit"] {
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    form button[type="submit"]:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/#features">Features</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  
+  <!-- Contact Form Section -->
+  <section class="hero">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you! In case you need to file a bug or want to add/remove features! Fill out the form below to get in touch.</p>
+    <p>{{ mail_sent }}</p>
+    <form action="/contact" method="post">
+      
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="message">Your Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+      
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <a href="https://github.com/ExxonExxon/Taskify" class="github-icon" target="_blank">
+        <i style="font-size: 20px;" class="fa fa-github"></i>
+      </a>
+      <a href="#">Terms of Service</a>
+      <a href="/about">About</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+</body>
+
+</html>
