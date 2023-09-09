@@ -1,177 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="/static/favicon-32x32.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <meta charset="UTF-8">
-  <meta name="keywords" content="task management, to-do list, productivity, organize tasks, task organizer, Taskify, taskify, taskify signup">
-  <meta name="description" content="Signup Page for Taskify">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taskify - Signup</title>
-  <style>
-    /* Reset default margin, font, and background */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #333;
-      color: #ccc;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    /* Header and navigation styling */
-    header {
-      background-color: #1a1a1a;
-      padding: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+        .signup-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      background-color: #1e1e1e;
-      border-radius: 10px;
-      overflow: hidden;
-    }
+        .signup-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    nav a {
-      text-decoration: none;
-      color: #ffffff;
-      padding: 5px 15px;
-      font-size: 14px;
-      position: relative;
-    }
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+        }
 
-    nav a:hover {
-      color: #007bff;
-      text-decoration: underline;
-    }
+        .signup-input {
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background-color: #444;
+            color: #fff;
+        }
 
-    /* Signup container and form styling */
-    .signup-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+        .signup-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
 
-    .signup-box {
-      background-color: #444;
-      padding: 30px;
-      border-radius: 15px;
-      border: 1px solid #555;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      width: 360px;
-    }
-
-    .signup-title {
-      font-size: 32px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .signup-form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .signup-input {
-      margin: 15px 0;
-      padding: 14px;
-      border: 1px solid #555;
-      border-radius: 8px;
-      font-size: 16px;
-      background-color: #222;
-      color: #ccc;
-    }
-
-    .signup-input::placeholder {
-      color: #888;
-    }
-
-    .signup-btn {
-      background-color: #007bff;
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      padding: 14px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      width: 100%;
-    }
-
-    .signup-btn:hover {
-      background-color: #0056b3;
-    }
-
-    .login-link {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-      color: rgb(255, 255, 255);
-    }
-
-    /* Checkbox styling */
-    .checkbox-container {
-      display: flex;
-      align-items: center;
-    }
-
-    .checkbox-label {
-      font-size: 13px;
-      color: #ccc;
-    }
-
-    .checkbox-label a {
-      color: #007bff;
-    }
-
-    .checkbox-label a:hover {
-      color: #0056b3;
-    }
-  </style>
+        .signup-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/login">Login</a>
-    </nav>
-  </header>
-  <div class="signup-container">
-    <div class="signup-box">
-      <h1 class="signup-title">Welcome to Taskify</h1>
-      <p style="align-items: center;text-align: center;color: rgb(252, 98, 98);">{{ error_message }}</p>
-      <form method="post" action="/signup" id="signup-form" onsubmit="setCookieWithUsername()" class="signup-form">
-        <input type="text" id="username" name="username" class="signup-input" placeholder="Username" required>
-        <input type="email" name="email" class="signup-input" placeholder="Email" required>
-        <input type="password" name="password" class="signup-input" placeholder="Password" required>
-        <div class="checkbox-container">
-          <input type="checkbox" name="privacy_policy" id="privacy_policy" required>
-          <label class="checkbox-label" for="privacy_policy">I agree to the <a style="color: white;" href="/privacy-policy">Privacy Policy</a> and the <a style="color: white;" href="/terms-of-services">Terms of Services</a></label>
-        </div>
-        <br>
-        <button type="submit" class="signup-btn">Get Started</button>
-      </form>
-      <p class="login-link">Already have an account? <a style="color: white;" href="/login">Log in here</a></p>
+    <div class="signup-container">
+        <h1>Signup</h1>
+        <form class="signup-form" action="/signup" method="post">
+            <input class="signup-input" type="text" name="username" placeholder="Username" required>
+            <input class="signup-input" type="password" name="password" placeholder="Password" required>
+            <button class="signup-button" type="submit">Signup</button>
+        </form>
     </div>
-  </div>
-  <script>
-     function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 86400000).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
-  }
-
-  function setCookieWithUsername() {
-    const usernameInput = document.getElementById('username');
-    const usernameValue = usernameInput.value;
-
-    if (usernameValue) {
-      setCookie('user', usernameValue, 7); // Set the cookie to expire in 7 days
-    }
-  }
-  </script>
 </body>
 </html>
